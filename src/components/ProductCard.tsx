@@ -7,26 +7,47 @@ import { useNavigate } from 'react-router-dom';
 export default function ProductCard({ product }: { product: Product }) {
   const addItem = useCartStore((state) => state.addItem);
   const [selectedVariant, setSelectedVariant] = useState<Variant | undefined>(product.variants?.[0]);
+  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
   return (
     <motion.div 
       onClick={() => navigate(`/product/${product.id}`)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className="group relative flex flex-col bg-brand-bg border border-white/10 overflow-hidden cursor-pointer hover:bg-white/5 transition-colors p-6"
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.3 }}
     >
+      {/* Category Tags - Lusion Style */}
+      <div className="absolute top-4 left-4 z-10 flex gap-2">
+        <span className="bg-brand-bg/90 backdrop-blur-sm px-2 py-1 text-[8px] font-bold uppercase tracking-widest text-brand-accent border border-brand-accent/30">
+          {product.category}
+        </span>
+        <span className="bg-brand-bg/90 backdrop-blur-sm px-2 py-1 text-[8px] font-bold uppercase tracking-widest text-white/60 border border-white/10">
+          Premium
+        </span>
+      </div>
+
       {/* Image Container */}
       <div className="relative aspect-[4/3] overflow-hidden bg-white/5 mb-6">
-        <img 
+        <motion.img 
           src={selectedVariant ? selectedVariant.imageUrl : product.imageUrl} 
           alt={product.name}
           className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 shadow-2xl"
           referrerPolicy="no-referrer"
+          animate={{ scale: isHovered ? 1.05 : 1 }}
+          transition={{ duration: 0.6 }}
         />
         
         {/* Quick Badge */}
-        <div className="absolute bottom-2 left-2 bg-brand-bg/80 px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-white">
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
+          className="absolute bottom-2 left-2 bg-brand-accent/90 backdrop-blur-sm px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-white"
+        >
           Limited Edition
-        </div>
+        </motion.div>
       </div>
 
       {/* Details */}

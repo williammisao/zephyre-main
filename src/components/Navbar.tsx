@@ -8,6 +8,18 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const cartItemsCount = useCartStore((state) => state.items.reduce((acc, item) => acc + item.quantity, 0));
 
+  const scrollToProducts = () => {
+    // Check if we're on home page
+    if (window.location.pathname === '/') {
+      const productsSection = document.getElementById('products-section');
+      productsSection?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Navigate to home page first, then scroll
+      window.location.href = '/#products-section';
+    }
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-bg border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,8 +34,8 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Shop</a>
-            <a href="#" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Collections</a>
+            <button onClick={scrollToProducts} className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Shop</button>
+            <button onClick={scrollToProducts} className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Collections</button>
             <a href="#" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Ethos</a>
           </div>
 
@@ -59,9 +71,9 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden bg-brand-secondary border-b border-brand-primary/10 px-4 py-6 space-y-4"
         >
-          <a href="#" className="block text-lg font-medium">Shop All</a>
-          <a href="#" className="block text-lg font-medium">Men</a>
-          <a href="#" className="block text-lg font-medium">Women</a>
+          <button onClick={scrollToProducts} className="block text-lg font-medium w-full text-left">Shop All</button>
+          <button onClick={scrollToProducts} className="block text-lg font-medium w-full text-left">Men</button>
+          <button onClick={scrollToProducts} className="block text-lg font-medium w-full text-left">Women</button>
           <a href="#" className="block text-lg font-medium">Vision</a>
         </motion.div>
       )}
