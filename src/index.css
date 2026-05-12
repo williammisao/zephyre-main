@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --font-italic: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  
+  --color-brand-primary: #FFFFFF;
+  --color-brand-bg: #0A0A0A;
+  --color-brand-accent: #2563EB;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-brand-primary font-sans antialiased;
+  }
+}
