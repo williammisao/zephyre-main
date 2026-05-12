@@ -41,7 +41,7 @@ export default function CategoryShowcase() {
                 <motion.img
                   src={category.image}
                   alt={category.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 transition-all duration-700"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.6 }}
                   referrerPolicy="no-referrer"

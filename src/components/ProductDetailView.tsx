@@ -63,7 +63,7 @@ export default function ProductDetailView() {
               <img 
                 src={selectedVariant ? selectedVariant.imageUrl : product.imageUrl} 
                 alt={product.name}
-                className="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover transition-all duration-700"
                 referrerPolicy="no-referrer"
               />
             </div>
@@ -77,7 +77,7 @@ export default function ProductDetailView() {
                             onClick={() => setSelectedVariant(v)}
                             className={`aspect-square border-2 transition-all overflow-hidden ${selectedVariant?.id === v.id ? 'border-brand-accent' : 'border-white/5 opacity-50 hover:opacity-100'}`}
                         >
-                            <img src={v.imageUrl} alt={v.name} className="w-full h-full object-cover grayscale" />
+                            <img src={v.imageUrl} alt={v.name} className="w-full h-full object-cover" />
                         </button>
                     ))}
                 </div>

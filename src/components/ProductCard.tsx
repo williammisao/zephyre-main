@@ -34,7 +34,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <motion.img 
           src={selectedVariant ? selectedVariant.imageUrl : product.imageUrl} 
           alt={product.name}
-          className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 shadow-2xl"
+          className="w-full h-full object-cover transition-all duration-700 shadow-2xl"
           referrerPolicy="no-referrer"
           animate={{ scale: isHovered ? 1.05 : 1 }}
           transition={{ duration: 0.6 }}
