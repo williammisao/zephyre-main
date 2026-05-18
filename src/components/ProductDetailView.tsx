@@ -1,16 +1,50 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Minus, Plus, ShoppingBag, ArrowLeft, Star, ShieldCheck, Truck, RefreshCcw } from 'lucide-react';
+import { Minus, Plus, ShoppingBag, ArrowLeft, Star, ShieldCheck, Truck, RefreshCcw, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product, useCartStore, Variant } from '../store/useCartStore';
+
+// Define shirt sizes
+const SHIRT_SIZES = [
+  { id: 's', name: 'S', inStock: false },
+  { id: 'm', name: 'M', inStock: true },
+  { id: 'l', name: 'L', inStock: true },
+  { id: 'xl', name: 'XL', inStock: true },
+  { id: 'xxl', name: 'XXL', inStock: true },
+];
+
+// Image mapping by color variant
+const COLOR_IMAGES: Record<string, string[]> = {
+  'black': [
+    '/images/t-shirts/trust-black-t-shirt.jpeg',
+    '/images/t-shirts/trust-folded.jpeg',
+  ],
+  'beige': [
+    '/images/t-shirts/trust-beige-t-shirt.jpeg',
+    '/images/t-shirts/trust-folded.jpeg',
+  ],
+};
 
 export default function ProductDetailView() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedVariant, setSelectedVariant] = useState<Variant | undefined>(undefined);
+  const [selectedSize, setSelectedSize] = useState<string>('m');
   const [quantity, setQuantity] = useState(1);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const addItem = useCartStore((state) => state.addItem);
+
+  // Get images based on selected variant
+  const getProductImages = () => {
+    if (selectedVariant) {
+      const variantName = selectedVariant.name.toLowerCase();
+      return COLOR_IMAGES[variantName] || [selectedVariant.imageUrl];
+    }
+    return [product?.imageUrl || ''];
+  };
+
+  const productImages = getProductImages();
 
   useEffect(() => {
     fetch(`/api/products/${id}`)
@@ -22,6 +56,21 @@ export default function ProductDetailView() {
       });
       window.scrollTo(0, 0);
   }, [id]);
+
+  // Reset image index when variant changes
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [selectedVariant]);
+
+  const handleNextImage = () => {
+    const images = getProductImages();
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrevImage = () => {
+    const images = getProductImages();
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   if (loading) {
     return (
@@ -59,29 +108,56 @@ export default function ProductDetailView() {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-6"
           >
-            <div className="aspect-[4/5] bg-white/5 overflow-hidden border border-white/10">
+            <div className="aspect-[4/5] bg-white/5 overflow-hidden border border-white/10 relative group">
               <img 
-                src={selectedVariant ? selectedVariant.imageUrl : product.imageUrl} 
+                src={productImages[currentImageIndex]} 
                 alt={product.name}
                 className="w-full h-full object-cover transition-all duration-700"
                 referrerPolicy="no-referrer"
               />
+              
+              {/* Image Navigation Buttons */}
+              <button
+                onClick={handlePrevImage}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/80 border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-brand-accent hover:border-brand-accent"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={handleNextImage}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/80 border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-brand-accent hover:border-brand-accent"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+
+              {/* Image Indicators */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {productImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      currentImageIndex === index ? 'bg-brand-accent w-8' : 'bg-white/30'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
             
-            {/* Gallery / Variants Icons */}
-            {product.variants && (
-                <div className="grid grid-cols-4 gap-4">
-                    {product.variants.map((v) => (
-                        <button 
-                            key={v.id}
-                            onClick={() => setSelectedVariant(v)}
-                            className={`aspect-square border-2 transition-all overflow-hidden ${selectedVariant?.id === v.id ? 'border-brand-accent' : 'border-white/5 opacity-50 hover:opacity-100'}`}
-                        >
-                            <img src={v.imageUrl} alt={v.name} className="w-full h-full object-cover" />
-                        </button>
-                    ))}
-                </div>
-            )}
+            {/* Gallery / Thumbnail Navigation */}
+            <div className={`grid gap-4 ${productImages.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
+              {productImages.map((img, index) => (
+                <button 
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`aspect-square border-2 transition-all overflow-hidden ${
+                    currentImageIndex === index ? 'border-brand-accent' : 'border-white/5 opacity-50 hover:opacity-100'
+                  }`}
+                >
+                  <img src={img} alt={`${product.name} view ${index + 1}`} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
           </motion.div>
 
           {/* Product Detail Content */}
@@ -121,6 +197,42 @@ export default function ProductDetailView() {
                         >
                             {v.name}
                         </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* Size Selection */}
+            <div className="mb-10">
+                <span className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-4">Select Size</span>
+                <div className="flex flex-wrap gap-3">
+                    {SHIRT_SIZES.map((size) => (
+                        <div key={size.id} className="relative group">
+                            <button 
+                                onClick={() => size.inStock && setSelectedSize(size.id)}
+                                disabled={!size.inStock}
+                                className={`px-6 py-3 border text-[11px] font-black uppercase tracking-widest transition-all relative ${
+                                  selectedSize === size.id && size.inStock
+                                    ? 'border-brand-accent bg-brand-accent text-white' 
+                                    : size.inStock
+                                    ? 'border-white/10 text-white/40 hover:border-white/30'
+                                    : 'border-white/5 text-white/20 cursor-not-allowed'
+                                }`}
+                            >
+                                {size.name}
+                                {!size.inStock && (
+                                  <span className="absolute inset-0 flex items-center justify-center">
+                                    <span className="w-full h-[1px] bg-red-500 rotate-[-20deg]" />
+                                  </span>
+                                )}
+                            </button>
+                            {/* Tooltip for out of stock */}
+                            {!size.inStock && (
+                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-red-500 text-white text-[9px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                                    Out of Stock
+                                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-red-500" />
+                                </div>
+                            )}
+                        </div>
                     ))}
                 </div>
             </div>

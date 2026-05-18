@@ -5,6 +5,9 @@ import Navbar from './components/Navbar';
 import HomeView from './components/HomeView';
 import ShopView from './components/ShopView';
 import ProductDetailView from './components/ProductDetailView';
+import OurStory from './components/OurStory';
+import CheckoutPage from './components/CheckoutPage';
+import AccountPage from './components/AccountPage';
 import CartSidebar from './components/CartSidebar';
 import CustomCursor from './components/CustomCursor';
 import SmoothScroll from './components/SmoothScroll';
@@ -39,6 +42,9 @@ export default function App() {
           <Route path="/" element={<HomeView />} />
           <Route path="/shop" element={<ShopView />} />
           <Route path="/product/:id" element={<ProductDetailView />} />
+          <Route path="/our-story" element={<OurStory />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/account" element={<AccountPage />} />
         </Routes>
 
         {/* Footer */}

@@ -20,6 +20,10 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
     setIsMenuOpen(false);
   };
 
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-bg border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,6 +31,7 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
           {/* Logo */}
           <Link 
             to="/"
+            onClick={handleLogoClick}
             className="flex-shrink-0 flex items-center cursor-pointer" 
           >
             <img src="/images/zephyre.PNG" alt="Zephyr Logo" className="h-8 w-auto brightness-0 invert" />
@@ -34,14 +39,15 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <button onClick={scrollToProducts} className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Shop</button>
+            <Link to="/shop" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Shop</Link>
             <button onClick={scrollToProducts} className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Collections</button>
+            <Link to="/our-story" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Our Story</Link>
             <a href="#" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Ethos</a>
           </div>
 
           {/* Icons */}
           <div className="flex items-center space-x-6 text-[11px] font-bold uppercase tracking-widest">
-            <button className="hover:text-white text-white/50 transition-colors uppercase">Account</button>
+            <Link to="/account" className="hover:text-white text-white/50 transition-colors uppercase">Account</Link>
             <button 
               onClick={onOpenCart}
               className="flex items-center gap-2 hover:text-white text-white/50 transition-colors relative"
@@ -71,9 +77,10 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden bg-brand-secondary border-b border-brand-primary/10 px-4 py-6 space-y-4"
         >
-          <button onClick={scrollToProducts} className="block text-lg font-medium w-full text-left">Shop All</button>
+          <Link to="/shop" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium w-full text-left">Shop All</Link>
           <button onClick={scrollToProducts} className="block text-lg font-medium w-full text-left">Men</button>
           <button onClick={scrollToProducts} className="block text-lg font-medium w-full text-left">Women</button>
+          <Link to="/our-story" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium">Our Story</Link>
           <a href="#" className="block text-lg font-medium">Vision</a>
         </motion.div>
       )}

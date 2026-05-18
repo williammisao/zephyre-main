@@ -1,9 +1,16 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react';
 import { useCartStore } from '../store/useCartStore';
+import { useNavigate } from 'react-router-dom';
 
 export default function CartSidebar({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
   const { items, updateQuantity, removeItem, total } = useCartStore();
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    onClose();
+    navigate('/checkout');
+  };
 
   return (
     <AnimatePresence>
@@ -104,7 +111,11 @@ export default function CartSidebar({ isOpen, onClose }: { isOpen: boolean, onCl
                 <span className="text-white/40 font-bold uppercase tracking-[0.2em] text-[10px]">Subtotal</span>
                 <span className="text-2xl font-black tracking-tighter italic">₹{total().toLocaleString('en-IN')}</span>
               </div>
-              <button className="w-full py-5 bg-brand-primary text-brand-bg font-black uppercase tracking-[0.3em] text-[12px] hover:bg-brand-accent hover:text-white transition-all transform active:scale-95">
+              <button 
+                onClick={handleCheckout}
+                disabled={items.length === 0}
+                className="w-full py-5 bg-brand-primary text-brand-bg font-black uppercase tracking-[0.3em] text-[12px] hover:bg-brand-accent hover:text-white transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Checkout Now
               </button>
             </div>
