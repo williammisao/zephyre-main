@@ -1,5 +1,4 @@
 import { motion } from 'motion/react';
-import { ArrowUpRight } from 'lucide-react';
 
 export default function FeaturedSection() {
   const features = [
@@ -71,14 +70,6 @@ export default function FeaturedSection() {
               <p className="text-white/50 text-sm mb-6 leading-relaxed">
                 {feature.description}
               </p>
-
-              {/* Arrow */}
-              <motion.div
-                className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity"
-                whileHover={{ x: 4, y: -4 }}
-              >
-                <ArrowUpRight className="w-6 h-6 text-brand-accent" />
-              </motion.div>
             </motion.div>
           ))}
         </div>
