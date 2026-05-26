@@ -75,7 +75,7 @@ export const useCartStore = create<CartStore>()(
       },
     }),
     {
-      name: 'zephyr-cart-storage',
+      name: 'zephyre-cart-storage',
     }
   )
 );

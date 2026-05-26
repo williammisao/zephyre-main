@@ -94,12 +94,12 @@ export default function App() {
             
             <div className="flex flex-col md:flex-row justify-between items-center pt-16 border-t border-white/5 gap-8">
                 <span className="text-[9px] uppercase tracking-[0.4em] font-black text-white/20 text-center md:text-left">
-                  &copy; 2023 ZEPHYR APPAREL GROUP. FORGED IN FAITH &bull; ESTABLISHED 2023.
+                  &copy; 2023 ZEPHYRE APPAREL GROUP. FORGED IN FAITH &bull; ESTABLISHED 2023.
                 </span>
                 <div className="flex gap-12 text-[9px] uppercase tracking-[0.3em] font-black text-white/20">
-                   <span>Privacy Policy</span>
-                   <span>Terms</span>
-                   <span>Cookies</span>
+                   <span className="cursor-pointer hover:text-white transition-colors">Privacy Policy</span>
+                   <span className="cursor-pointer hover:text-white transition-colors">Terms</span>
+                   <span className="cursor-pointer hover:text-white transition-colors">Cookies</span>
                 </div>
             </div>
           </div>
