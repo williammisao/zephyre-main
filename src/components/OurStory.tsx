@@ -30,7 +30,7 @@ export default function OurStory() {
           <div className="border-l-4 border-brand-accent pl-8 py-4">
             <h2 className="text-3xl font-black italic tracking-tight mb-6">The Beginning</h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Zephyr was born from a simple yet powerful conviction: that our bodies are temples, 
+              Zephyre was born from a simple yet powerful conviction: that our bodies are temples, 
               gifts to be honored through discipline, strength, and purpose. In 2023, we set out 
               to create more than just apparel—we aimed to build a movement.
             </p>
@@ -43,8 +43,8 @@ export default function OurStory() {
           <div className="border-l-4 border-brand-accent pl-8 py-4">
             <h2 className="text-3xl font-black italic tracking-tight mb-6">Our Foundation</h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Rooted in faith and driven by excellence, Zephyr stands at the intersection of 
-              performance and purpose. We draw inspiration from the breath of life itself—Zephyr, 
+              Rooted in faith and driven by excellence, Zephyre stands at the intersection of 
+              performance and purpose. We draw inspiration from the breath of life itself—Zephyre, 
               the gentle yet powerful wind that sustains and strengthens.
             </p>
             <p className="text-white/70 leading-relaxed">
@@ -181,7 +181,7 @@ export default function OurStory() {
             Join The Movement
           </h2>
           <p className="text-white/70 text-lg leading-relaxed mb-12 max-w-2xl mx-auto">
-            Zephyr is more than apparel—it's a commitment to excellence, a declaration of faith, 
+            Zephyre is more than apparel—it's a commitment to excellence, a declaration of faith, 
             and a community of warriors. Are you ready to trust the process?
           </p>
           <a
