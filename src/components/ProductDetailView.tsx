@@ -93,20 +93,20 @@ export default function ProductDetailView() {
   }
 
   return (
-    <div className="min-h-screen bg-brand-bg text-white pt-24 pb-32">
+    <div className="min-h-screen bg-brand-bg text-white pt-20 sm:pt-24 pb-20 sm:pb-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <Link to="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white transition-colors mb-12 group">
+        <Link to="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white transition-colors mb-8 sm:mb-12 group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em]">Home / {product.category} / {product.name}</span>
+          <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em]">Home / {product.category} / {product.name}</span>
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20">
           {/* Main Image View */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
           >
             <div className="aspect-[4/5] bg-white/5 overflow-hidden border border-white/10 relative group">
               <img 
@@ -117,47 +117,55 @@ export default function ProductDetailView() {
               />
               
               {/* Image Navigation Buttons */}
-              <button
-                onClick={handlePrevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/80 border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-brand-accent hover:border-brand-accent"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button
-                onClick={handleNextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/80 border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-brand-accent hover:border-brand-accent"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
+              {productImages.length > 1 && (
+                <>
+                  <button
+                    onClick={handlePrevImage}
+                    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/80 border border-white/20 flex items-center justify-center opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity hover:bg-brand-accent hover:border-brand-accent"
+                  >
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+                  <button
+                    onClick={handleNextImage}
+                    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/80 border border-white/20 flex items-center justify-center opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity hover:bg-brand-accent hover:border-brand-accent"
+                  >
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+                </>
+              )}
 
               {/* Image Indicators */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                {productImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      currentImageIndex === index ? 'bg-brand-accent w-8' : 'bg-white/30'
-                    }`}
-                  />
-                ))}
-              </div>
+              {productImages.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  {productImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        currentImageIndex === index ? 'bg-brand-accent w-8' : 'bg-white/30'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
             
             {/* Gallery / Thumbnail Navigation */}
-            <div className={`grid gap-4 ${productImages.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
-              {productImages.map((img, index) => (
-                <button 
-                  key={index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`aspect-square border-2 transition-all overflow-hidden ${
-                    currentImageIndex === index ? 'border-brand-accent' : 'border-white/5 opacity-50 hover:opacity-100'
-                  }`}
-                >
-                  <img src={img} alt={`${product.name} view ${index + 1}`} className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
+            {productImages.length > 1 && (
+              <div className={`grid gap-3 sm:gap-4 ${productImages.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
+                {productImages.map((img, index) => (
+                  <button 
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`aspect-square border-2 transition-all overflow-hidden ${
+                      currentImageIndex === index ? 'border-brand-accent' : 'border-white/5 opacity-50 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img} alt={`${product.name} view ${index + 1}`} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
           </motion.div>
 
           {/* Product Detail Content */}
@@ -166,18 +174,18 @@ export default function ProductDetailView() {
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-col"
           >
-            <div className="mb-10">
-                <div className="flex items-center gap-2 mb-4">
-                    <span className="text-brand-accent text-[11px] font-black uppercase tracking-[0.4em]">{product.category}</span>
-                    <div className="flex items-center gap-1 ml-4 border-l border-white/10 pl-4">
+            <div className="mb-8 sm:mb-10">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2 mb-4">
+                    <span className="text-brand-accent text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em]">{product.category}</span>
+                    <div className="flex items-center gap-1 sm:ml-4 sm:border-l sm:border-white/10 sm:pl-4">
                         <Star className="w-3 h-3 fill-brand-accent text-brand-accent" />
-                        <span className="text-[11px] font-black italic">4.9 / 5.0 (280 Reviews)</span>
+                        <span className="text-[10px] sm:text-[11px] font-black italic">4.9 / 5.0 (280 Reviews)</span>
                     </div>
                 </div>
-                <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic leading-[0.9] mb-6">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase italic leading-[0.9] mb-4 sm:mb-6">
                     {product.name}
                 </h1>
-                <div className="text-4xl font-black text-brand-accent tracking-tighter mb-8 italic">
+                <div className="text-3xl sm:text-4xl font-black text-brand-accent tracking-tighter mb-6 sm:mb-8 italic">
                     ₹{product.price.toLocaleString('en-IN')}
                 </div>
                 <p className="text-white/50 text-sm font-medium leading-relaxed max-w-md">
@@ -238,11 +246,11 @@ export default function ProductDetailView() {
             </div>
 
             {/* Quantity and CTA */}
-            <div className="flex flex-col gap-6 mb-12">
-                <div className="flex items-center gap-6">
-                    <div className="flex items-center border border-white/10 h-14 px-4 bg-white/5">
+            <div className="flex flex-col gap-4 sm:gap-6 mb-10 sm:mb-12">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
+                    <div className="flex items-center justify-center border border-white/10 h-12 sm:h-14 px-4 bg-white/5">
                         <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="p-2 hover:text-brand-accent transition-colors"><Minus className="w-4 h-4" /></button>
-                        <span className="w-12 text-center font-black text-xl">{quantity}</span>
+                        <span className="w-12 text-center font-black text-lg sm:text-xl">{quantity}</span>
                         <button onClick={() => setQuantity(q => q + 1)} className="p-2 hover:text-brand-accent transition-colors"><Plus className="w-4 h-4" /></button>
                     </div>
                     <button 
@@ -251,26 +259,26 @@ export default function ProductDetailView() {
                                 addItem(product, selectedVariant);
                             }
                         }}
-                        className="flex-1 h-14 bg-white text-brand-bg flex items-center justify-center gap-3 font-black uppercase tracking-[0.3em] text-sm hover:bg-brand-accent hover:text-white transition-all transform active:scale-95"
+                        className="flex-1 h-12 sm:h-14 bg-white text-brand-bg flex items-center justify-center gap-3 font-black uppercase tracking-[0.3em] text-xs sm:text-sm hover:bg-brand-accent hover:text-white transition-all transform active:scale-95"
                     >
-                        <ShoppingBag className="w-5 h-5" />
+                        <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
                         Add to Arsenal
                     </button>
                 </div>
             </div>
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-2 gap-4 pt-10 border-t border-white/10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-8 sm:pt-10 border-t border-white/10">
                 <div className="flex items-center gap-3 text-white/40">
-                    <ShieldCheck className="w-5 h-5 text-brand-accent" />
+                    <ShieldCheck className="w-5 h-5 text-brand-accent flex-shrink-0" />
                     <span className="text-[9px] font-bold uppercase tracking-widest leading-tight">Lifetime Strength<br/>Warranty</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/40">
-                    <Truck className="w-5 h-5 text-brand-accent" />
+                    <Truck className="w-5 h-5 text-brand-accent flex-shrink-0" />
                     <span className="text-[9px] font-bold uppercase tracking-widest leading-tight">Express Performance<br/>Shipping</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/40">
-                    <RefreshCcw className="w-5 h-5 text-brand-accent" />
+                    <RefreshCcw className="w-5 h-5 text-brand-accent flex-shrink-0" />
                     <span className="text-[9px] font-bold uppercase tracking-widest leading-tight">Zero-Hassle<br/>Ethos Returns</span>
                 </div>
             </div>
@@ -279,13 +287,13 @@ export default function ProductDetailView() {
       </div>
 
       {/* Philosophy Callout in Detail */}
-      <div className="mt-32 border-t border-white/10 py-32 bg-white/[0.02]">
-        <div className="max-w-4xl mx-auto text-center px-4">
-             <h2 className="text-[80px] font-black italic tracking-tighter opacity-5 uppercase mb-[-40px]">TRUST THE PROCESS</h2>
-             <p className="text-lg italic text-white/60 mb-6 leading-relaxed">
+      <div className="mt-20 sm:mt-24 md:mt-32 border-t border-white/10 py-20 sm:py-24 md:py-32 bg-white/[0.02]">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6">
+             <h2 className="text-[50px] sm:text-[60px] md:text-[80px] font-black italic tracking-tighter opacity-5 uppercase mb-[-30px] sm:mb-[-40px]">TRUST THE PROCESS</h2>
+             <p className="text-base sm:text-lg italic text-white/60 mb-4 sm:mb-6 leading-relaxed">
                 "Wait on the LORD; be of good courage, and He shall strengthen your heart."
              </p>
-             <span className="text-brand-accent text-[10px] font-black tracking-[0.5em] uppercase px-4 py-2 border border-brand-accent/20">Psalm 27:14</span>
+             <span className="text-brand-accent text-[9px] sm:text-[10px] font-black tracking-[0.4em] sm:tracking-[0.5em] uppercase px-3 sm:px-4 py-1.5 sm:py-2 border border-brand-accent/20 inline-block">Psalm 27:14</span>
         </div>
       </div>
     </div>

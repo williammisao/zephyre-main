@@ -32,42 +32,42 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-brand-bg text-white pt-24 pb-32">
+    <div className="min-h-screen bg-brand-bg text-white pt-20 sm:pt-24 pb-20 sm:pb-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <Link
           to="/shop"
-          className="inline-flex items-center gap-2 text-white/40 hover:text-white transition-colors mb-12 group"
+          className="inline-flex items-center gap-2 text-white/40 hover:text-white transition-colors mb-8 sm:mb-12 group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em]">Back to Shop</span>
+          <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em]">Back to Shop</span>
         </Link>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-16"
+          className="mb-12 sm:mb-16"
         >
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic mb-4">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase italic mb-3 sm:mb-4">
             Checkout
           </h1>
-          <p className="text-white/60 text-lg">
+          <p className="text-white/60 text-base sm:text-lg">
             Complete your order securely
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
           {/* Checkout Form */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             {/* Shipping Information */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white/[0.02] border border-white/10 p-8"
+              className="bg-white/[0.02] border border-white/10 p-6 sm:p-8"
             >
-              <div className="flex items-center gap-3 mb-8">
-                <Truck className="w-6 h-6 text-brand-accent" />
-                <h2 className="text-2xl font-black uppercase tracking-tight">Shipping Information</h2>
+              <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-accent" />
+                <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Shipping Information</h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -155,23 +155,23 @@ export default function CheckoutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-white/[0.02] border border-white/10 p-8"
+              className="bg-white/[0.02] border border-white/10 p-6 sm:p-8"
             >
-              <div className="flex items-center gap-3 mb-8">
-                <CreditCard className="w-6 h-6 text-brand-accent" />
-                <h2 className="text-2xl font-black uppercase tracking-tight">Payment Method</h2>
+              <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                <CreditCard className="w-5 h-5 sm:w-6 sm:h-6 text-brand-accent" />
+                <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Payment Method</h2>
               </div>
 
               <div className="space-y-4 mb-6">
                 <button
                   onClick={() => setPaymentMethod('card')}
-                  className={`w-full flex items-center justify-between p-4 border transition-all ${
+                  className={`w-full flex items-center justify-between p-3 sm:p-4 border transition-all ${
                     paymentMethod === 'card'
                       ? 'border-brand-accent bg-brand-accent/10'
                       : 'border-white/10 hover:border-white/20'
                   }`}
                 >
-                  <span className="font-black uppercase tracking-wider text-sm">Credit / Debit Card</span>
+                  <span className="font-black uppercase tracking-wider text-xs sm:text-sm">Credit / Debit Card</span>
                   <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                     paymentMethod === 'card' ? 'border-brand-accent' : 'border-white/30'
                   }`}>
@@ -181,13 +181,13 @@ export default function CheckoutPage() {
 
                 <button
                   onClick={() => setPaymentMethod('upi')}
-                  className={`w-full flex items-center justify-between p-4 border transition-all ${
+                  className={`w-full flex items-center justify-between p-3 sm:p-4 border transition-all ${
                     paymentMethod === 'upi'
                       ? 'border-brand-accent bg-brand-accent/10'
                       : 'border-white/10 hover:border-white/20'
                   }`}
                 >
-                  <span className="font-black uppercase tracking-wider text-sm">UPI Payment</span>
+                  <span className="font-black uppercase tracking-wider text-xs sm:text-sm">UPI Payment</span>
                   <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                     paymentMethod === 'upi' ? 'border-brand-accent' : 'border-white/30'
                   }`}>
@@ -197,13 +197,13 @@ export default function CheckoutPage() {
 
                 <button
                   onClick={() => setPaymentMethod('cod')}
-                  className={`w-full flex items-center justify-between p-4 border transition-all ${
+                  className={`w-full flex items-center justify-between p-3 sm:p-4 border transition-all ${
                     paymentMethod === 'cod'
                       ? 'border-brand-accent bg-brand-accent/10'
                       : 'border-white/10 hover:border-white/20'
                   }`}
                 >
-                  <span className="font-black uppercase tracking-wider text-sm">Cash on Delivery</span>
+                  <span className="font-black uppercase tracking-wider text-xs sm:text-sm">Cash on Delivery</span>
                   <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                     paymentMethod === 'cod' ? 'border-brand-accent' : 'border-white/30'
                   }`}>
@@ -272,9 +272,9 @@ export default function CheckoutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white/[0.02] border border-white/10 p-8 sticky top-24"
+              className="bg-white/[0.02] border border-white/10 p-6 sm:p-8 lg:sticky lg:top-24"
             >
-              <h2 className="text-2xl font-black uppercase tracking-tight mb-8">Order Summary</h2>
+              <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight mb-6 sm:mb-8">Order Summary</h2>
 
               {/* Order Items */}
               <div className="space-y-4 mb-8 pb-8 border-b border-white/10">
@@ -327,12 +327,12 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              <button className="w-full h-14 bg-brand-accent text-white flex items-center justify-center gap-3 font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-brand-bg transition-all transform active:scale-95 mb-4">
-                <Lock className="w-5 h-5" />
+              <button className="w-full h-12 sm:h-14 bg-brand-accent text-white flex items-center justify-center gap-3 font-black uppercase tracking-[0.3em] text-xs sm:text-sm hover:bg-white hover:text-brand-bg transition-all transform active:scale-95 mb-4">
+                <Lock className="w-4 h-4 sm:w-5 sm:h-5" />
                 Place Order
               </button>
 
-              <p className="text-center text-white/40 text-[10px] font-bold uppercase tracking-wider">
+              <p className="text-center text-white/40 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">
                 Secure checkout powered by Stripe
               </p>
             </motion.div>

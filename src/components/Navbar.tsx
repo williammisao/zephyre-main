@@ -34,7 +34,7 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
             onClick={handleLogoClick}
             className="flex-shrink-0 flex items-center cursor-pointer" 
           >
-            <img src="/images/zephyre.PNG" alt="Zephyr Logo" className="h-8 w-auto brightness-0 invert" />
+            <img src="/images/zephyre.PNG" alt="Zephyre Logo" className="h-8 w-auto brightness-0 invert" />
           </Link>
 
           {/* Desktop Menu */}
@@ -46,14 +46,14 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
           </div>
 
           {/* Icons */}
-          <div className="flex items-center space-x-6 text-[11px] font-bold uppercase tracking-widest">
-            <Link to="/account" className="hover:text-white text-white/50 transition-colors uppercase">Account</Link>
+          <div className="flex items-center space-x-3 sm:space-x-6 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest">
+            <Link to="/account" className="hidden sm:block hover:text-white text-white/50 transition-colors uppercase">Account</Link>
             <button 
               onClick={onOpenCart}
-              className="flex items-center gap-2 hover:text-white text-white/50 transition-colors relative"
+              className="flex items-center gap-1.5 sm:gap-2 hover:text-white text-white/50 transition-colors relative"
             >
               <ShoppingCart className="w-4 h-4" />
-              <span>Cart</span>
+              <span className="hidden sm:inline">Cart</span>
               {cartItemsCount > 0 && (
                 <span className="bg-white text-brand-bg px-1.5 py-0.5 rounded-full text-[9px] font-black">
                   {cartItemsCount.toString().padStart(2, '0')}
@@ -75,13 +75,13 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:hidden bg-brand-secondary border-b border-brand-primary/10 px-4 py-6 space-y-4"
+          className="md:hidden bg-brand-secondary border-b border-brand-primary/10 px-4 sm:px-6 py-6 space-y-4"
         >
-          <Link to="/shop" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium w-full text-left">Shop All</Link>
-          <button onClick={scrollToProducts} className="block text-lg font-medium w-full text-left">Men</button>
-          <button onClick={scrollToProducts} className="block text-lg font-medium w-full text-left">Women</button>
-          <Link to="/our-story" onClick={() => setIsMenuOpen(false)} className="block text-lg font-medium">Our Story</Link>
-          <a href="#" className="block text-lg font-medium">Vision</a>
+          <Link to="/shop" onClick={() => setIsMenuOpen(false)} className="block text-base sm:text-lg font-medium w-full text-left uppercase tracking-wider">Shop All</Link>
+          <button onClick={scrollToProducts} className="block text-base sm:text-lg font-medium w-full text-left uppercase tracking-wider">Collections</button>
+          <Link to="/our-story" onClick={() => setIsMenuOpen(false)} className="block text-base sm:text-lg font-medium uppercase tracking-wider">Our Story</Link>
+          <a href="#" className="block text-base sm:text-lg font-medium uppercase tracking-wider">Ethos</a>
+          <Link to="/account" onClick={() => setIsMenuOpen(false)} className="block text-base sm:text-lg font-medium uppercase tracking-wider sm:hidden border-t border-white/10 pt-4">Account</Link>
         </motion.div>
       )}
     </nav>

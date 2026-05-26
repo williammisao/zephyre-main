@@ -48,7 +48,7 @@ export default function ShopView() {
   });
 
   return (
-    <div className="min-h-screen bg-brand-bg pt-24 pb-32 relative overflow-hidden">
+    <div className="min-h-screen bg-brand-bg pt-20 sm:pt-24 pb-20 sm:pb-32 relative overflow-hidden">
       {/* Animated Background */}
       <AnimatedBackground />
       
@@ -57,41 +57,41 @@ export default function ShopView() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-16 text-center"
+          className="mb-12 sm:mb-16 text-center"
         >
-          <span className="text-brand-accent text-[11px] font-black uppercase tracking-[0.4em] mb-4 block">
+          <span className="text-brand-accent text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-3 sm:mb-4 block">
             Full Collection
           </span>
-          <h1 className="text-[60px] md:text-[100px] font-black tracking-tighter leading-[0.85] uppercase italic text-white mb-6">
+          <h1 className="text-[50px] sm:text-[60px] md:text-[80px] lg:text-[100px] font-black tracking-tighter leading-[0.85] uppercase italic text-white mb-4 sm:mb-6">
             THE<br/>ARSENAL
           </h1>
-          <p className="text-white/50 text-sm max-w-2xl mx-auto uppercase tracking-widest">
+          <p className="text-white/50 text-xs sm:text-sm max-w-2xl mx-auto uppercase tracking-widest px-4">
             Premium performance apparel engineered for warriors
           </p>
         </motion.div>
 
         {/* Filters & Controls Bar */}
-        <div className="mb-12 space-y-6">
+        <div className="mb-8 sm:mb-10 md:mb-12 space-y-4 sm:space-y-6">
           {/* Top Bar - Mobile Filter Toggle & Grid Controls */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               {/* Mobile Filter Toggle */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden flex items-center gap-2 px-4 py-3 border border-white/10 text-white hover:border-brand-accent transition-colors"
+                className="lg:hidden flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 border border-white/10 text-white hover:border-brand-accent transition-colors"
               >
                 <SlidersHorizontal className="w-4 h-4" />
-                <span className="text-xs font-black uppercase tracking-widest">Filters</span>
+                <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest">Filters</span>
               </button>
 
               {/* Results Count */}
-              <span className="text-white/40 text-xs font-black uppercase tracking-widest">
+              <span className="text-white/40 text-[10px] sm:text-xs font-black uppercase tracking-widest">
                 {sortedProducts.length} Products
               </span>
             </div>
 
             {/* Grid Controls & Sort */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* Grid Layout Toggle */}
               <div className="hidden md:flex items-center gap-2 border border-white/10 p-1">
                 <button
@@ -112,7 +112,7 @@ export default function ShopView() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-3 bg-white/5 border border-white/10 text-white text-xs font-black uppercase tracking-widest focus:outline-none focus:border-brand-accent transition-colors cursor-pointer"
+                className="px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-white/10 text-white text-[10px] sm:text-xs font-black uppercase tracking-widest focus:outline-none focus:border-brand-accent transition-colors cursor-pointer"
               >
                 {sortOptions.map(option => (
                   <option key={option.value} value={option.value} className="bg-brand-bg">
@@ -124,12 +124,12 @@ export default function ShopView() {
           </div>
 
           {/* Desktop Filters - Always Visible */}
-          <div className="hidden lg:flex items-center gap-4 flex-wrap">
+          <div className="hidden lg:flex items-center gap-3 sm:gap-4 flex-wrap">
             {categories.map(category => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 text-xs font-black uppercase tracking-widest transition-all ${
+                className={`px-4 sm:px-6 py-2 sm:py-3 text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all ${
                   selectedCategory === category
                     ? 'bg-brand-accent text-white'
                     : 'border border-white/10 text-white/50 hover:text-white hover:border-white/30'
@@ -219,9 +219,9 @@ export default function ShopView() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-16 text-center"
+            className="mt-12 sm:mt-16 text-center"
           >
-            <button className="px-12 py-5 border border-white/10 text-white text-xs font-black uppercase tracking-widest hover:bg-white hover:text-brand-bg transition-all">
+            <button className="w-full sm:w-auto px-10 sm:px-12 py-4 sm:py-5 border border-white/10 text-white text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-white hover:text-brand-bg transition-all">
               Load More Products
             </button>
           </motion.div>

@@ -31,13 +31,13 @@ export default function CartSidebar({ isOpen, onClose }: { isOpen: boolean, onCl
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-brand-bg z-[70] shadow-2xl flex flex-col border-l border-white/10 text-brand-primary"
+            className="fixed top-0 right-0 bottom-0 w-full sm:max-w-md bg-brand-bg z-[70] shadow-2xl flex flex-col border-l border-white/10 text-brand-primary"
           >
             {/* Header */}
-            <div className="p-6 border-b border-white/10 flex justify-between items-center bg-brand-bg">
-              <div className="flex items-center gap-3">
-                <ShoppingBag className="w-5 h-5 text-brand-accent" />
-                <h2 className="font-display text-xl font-black tracking-tighter uppercase italic">Your Bag</h2>
+            <div className="p-4 sm:p-6 border-b border-white/10 flex justify-between items-center bg-brand-bg">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent" />
+                <h2 className="font-display text-lg sm:text-xl font-black tracking-tighter uppercase italic">Your Bag</h2>
                 <span className="bg-white text-brand-bg text-[9px] px-1.5 py-0.5 rounded-full font-black">
                   {items.length.toString().padStart(2, '0')}
                 </span>
@@ -48,7 +48,7 @@ export default function CartSidebar({ isOpen, onClose }: { isOpen: boolean, onCl
             </div>
 
             {/* Items */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-8 divide-y divide-white/10">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 sm:space-y-8 divide-y divide-white/10">
               {items.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center opacity-20">
                   <ShoppingBag className="w-12 h-12 mb-4" />
@@ -106,15 +106,15 @@ export default function CartSidebar({ isOpen, onClose }: { isOpen: boolean, onCl
             </div>
 
             {/* Footer */}
-            <div className="p-8 border-t border-white/10 bg-white/5 space-y-6">
+            <div className="p-4 sm:p-6 md:p-8 border-t border-white/10 bg-white/5 space-y-4 sm:space-y-6">
               <div className="flex justify-between items-center">
-                <span className="text-white/40 font-bold uppercase tracking-[0.2em] text-[10px]">Subtotal</span>
-                <span className="text-2xl font-black tracking-tighter italic">₹{total().toLocaleString('en-IN')}</span>
+                <span className="text-white/40 font-bold uppercase tracking-[0.2em] text-[9px] sm:text-[10px]">Subtotal</span>
+                <span className="text-xl sm:text-2xl font-black tracking-tighter italic">₹{total().toLocaleString('en-IN')}</span>
               </div>
               <button 
                 onClick={handleCheckout}
                 disabled={items.length === 0}
-                className="w-full py-5 bg-brand-primary text-brand-bg font-black uppercase tracking-[0.3em] text-[12px] hover:bg-brand-accent hover:text-white transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-4 sm:py-5 bg-brand-primary text-brand-bg font-black uppercase tracking-[0.3em] text-[11px] sm:text-[12px] hover:bg-brand-accent hover:text-white transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Checkout Now
               </button>

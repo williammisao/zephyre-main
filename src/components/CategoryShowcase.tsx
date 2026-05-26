@@ -23,9 +23,9 @@ export default function CategoryShowcase() {
   ];
 
   return (
-    <section className="py-32">
+    <section className="py-20 sm:py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {categories.map((category, index) => (
             <motion.button
               key={index}
@@ -34,7 +34,7 @@ export default function CategoryShowcase() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              className="group relative h-[600px] overflow-hidden border border-white/10 hover:border-brand-accent/50 transition-all cursor-pointer text-left"
+              className="group relative h-[400px] sm:h-[500px] md:h-[600px] overflow-hidden border border-white/10 hover:border-brand-accent/50 transition-all cursor-pointer text-left"
             >
               {/* Background Image */}
               <div className="absolute inset-0">
@@ -50,22 +50,22 @@ export default function CategoryShowcase() {
               </div>
 
               {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-10 z-10">
+              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10 z-10">
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.2 + 0.3 }}
                 >
-                  <span className="text-brand-accent text-[10px] font-black uppercase tracking-[0.4em] mb-3 block">
+                  <span className="text-brand-accent text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-2 sm:mb-3 block">
                     {category.description}
                   </span>
-                  <h3 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic text-white mb-6">
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase italic text-white mb-4 sm:mb-6">
                     {category.title}
                   </h3>
-                  <div className="flex items-center gap-3 text-white group-hover:text-brand-accent transition-colors">
-                    <span className="text-sm font-black uppercase tracking-widest">Explore Now</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                  <div className="flex items-center gap-2 sm:gap-3 text-white group-hover:text-brand-accent transition-colors">
+                    <span className="text-xs sm:text-sm font-black uppercase tracking-widest">Explore Now</span>
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform" />
                   </div>
                 </motion.div>
               </div>
