@@ -41,8 +41,7 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/shop" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Shop</Link>
             <button onClick={scrollToProducts} className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Collections</button>
-            <Link to="/our-story" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Our Story</Link>
-            <a href="#" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Ethos</a>
+            <Link to="/ethos" className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">Ethos</Link>
           </div>
 
           {/* Icons */}
@@ -79,8 +78,7 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
         >
           <Link to="/shop" onClick={() => setIsMenuOpen(false)} className="block text-base sm:text-lg font-medium w-full text-left uppercase tracking-wider">Shop All</Link>
           <button onClick={scrollToProducts} className="block text-base sm:text-lg font-medium w-full text-left uppercase tracking-wider">Collections</button>
-          <Link to="/our-story" onClick={() => setIsMenuOpen(false)} className="block text-base sm:text-lg font-medium uppercase tracking-wider">Our Story</Link>
-          <a href="#" className="block text-base sm:text-lg font-medium uppercase tracking-wider">Ethos</a>
+          <Link to="/ethos" onClick={() => setIsMenuOpen(false)} className="block text-base sm:text-lg font-medium uppercase tracking-wider">Ethos</Link>
           <Link to="/account" onClick={() => setIsMenuOpen(false)} className="block text-base sm:text-lg font-medium uppercase tracking-wider sm:hidden border-t border-white/10 pt-4">Account</Link>
         </motion.div>
       )}

@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import HomeView from './components/HomeView';
 import ShopView from './components/ShopView';
 import ProductDetailView from './components/ProductDetailView';
-import OurStory from './components/OurStory';
+import Ethos from './components/Ethos';
 import CheckoutPage from './components/CheckoutPage';
 import AccountPage from './components/AccountPage';
 import CartSidebar from './components/CartSidebar';
@@ -42,7 +42,7 @@ export default function App() {
           <Route path="/" element={<HomeView />} />
           <Route path="/shop" element={<ShopView />} />
           <Route path="/product/:id" element={<ProductDetailView />} />
-          <Route path="/our-story" element={<OurStory />} />
+          <Route path="/ethos" element={<Ethos />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/account" element={<AccountPage />} />
         </Routes>
@@ -56,13 +56,13 @@ export default function App() {
             transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
             className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap text-[120px] md:text-[200px] font-black italic opacity-[0.02] pointer-events-none"
           >
-            ZEPHYR • STRENGTH • FAITH • ZEPHYR • STRENGTH • FAITH •
+            ZEPHYRE • STRENGTH • FAITH • ZEPHYRE • STRENGTH • FAITH •
           </motion.div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
               <div className="col-span-1 md:col-span-2">
-                <img src="/images/zephyre.PNG" alt="Zephyr Logo" className="h-12 w-auto brightness-0 invert mb-8" />
+                <img src="/images/zephyre.PNG" alt="Zephyre Logo" className="h-12 w-auto brightness-0 invert mb-8" />
                 <p className="text-white/40 max-w-sm mb-12 text-[11px] uppercase tracking-[0.2em] font-bold leading-relaxed">
                   Elite performance apparel rooted in faith. Forged in the furnace of discipline. Built to honor the gift of breath.
                 </p>

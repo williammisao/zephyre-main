@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Heart, Target, Users, Zap, Calendar, Award, TrendingUp } from 'lucide-react';
 
-export default function OurStory() {
+export default function Ethos() {
   return (
     <div className="min-h-screen bg-brand-bg text-white pt-20 sm:pt-24 pb-20 sm:pb-32">
       {/* Hero Section */}
