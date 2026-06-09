@@ -1,51 +1,56 @@
 import { motion } from 'motion/react';
 import { Heart, Target, Users, Zap, Calendar, Award, TrendingUp } from 'lucide-react';
+import FlowArt, { FlowSection } from './FlowArt';
 
 export default function Ethos() {
   return (
-    <div className="min-h-screen bg-brand-bg text-white pt-20 sm:pt-24 pb-20 sm:pb-32">
+    <FlowArt aria-label="Zephyre Ethos Story" className="bg-brand-bg text-white">
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 sm:mb-32">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-20"
-        >
-          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase italic leading-[0.9] mb-6 sm:mb-8">
-            Our Story
-          </h1>
-          <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed px-4">
-            IT'S YOU VS YOU
-          </p>
-        </motion.div>
+      <FlowSection className="bg-brand-bg" aria-label="Introduction">
+        <div className="flex flex-col justify-center items-center h-full">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase italic leading-[0.9] mb-6 sm:mb-8">
+              Our Story
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed px-4">
+              IT'S YOU VS YOU
+            </p>
+          </motion.div>
+        </div>
+      </FlowSection>
 
-        {/* Brand Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-4xl mx-auto space-y-8 sm:space-y-12"
-        >
+      {/* Brand Introduction */}
+      <FlowSection className="bg-gradient-to-b from-brand-bg to-brand-bg/95" aria-label="Brand Introduction">
+        <div className="flex flex-col justify-center max-w-4xl mx-auto">
           <div className="border-l-4 border-brand-accent pl-6 sm:pl-8 py-4">
-            <h2 className="text-2xl sm:text-3xl font-black italic tracking-tight mb-4 sm:mb-6">Introduction</h2>
-            <p className="text-white/70 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black italic tracking-tight mb-4 sm:mb-6">Introduction</h2>
+            <p className="text-white/70 leading-relaxed mb-3 sm:mb-4 text-base sm:text-lg">
               Zephyre is inspired by <span className="text-brand-accent font-bold">Zephyrus</span>, the Greek spirit of a light, flowing wind symbolizing movement, change, and energy. More than a fitness clothing brand, Zephyre represents a mindset: a commitment to consistency, discipline, and the pursuit of limitless potential.
             </p>
-            <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+            <p className="text-white/70 leading-relaxed text-base sm:text-lg">
               Designed to evolve with you, our apparel adapts to your journey supporting both performance and personal transformation. Zephyre is for those shaping not just their physique, but their lifestyle.
             </p>
           </div>
+        </div>
+      </FlowSection>
 
+      {/* Foundation */}
+      <FlowSection className="bg-brand-bg" aria-label="Our Foundation">
+        <div className="flex flex-col justify-center max-w-4xl mx-auto">
           <div className="border-l-4 border-brand-accent pl-6 sm:pl-8 py-4">
-            <h2 className="text-2xl sm:text-3xl font-black italic tracking-tight mb-4 sm:mb-6">Our Foundation</h2>
-            <p className="text-white/70 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
-              Zephyre was founded on <span className="text-brand-accent font-bold">28th August 2023</span> with a vision to build and inspire a dedicated fitness community through purpose driven apparel. This portfolio reflects the foundation of a brand built with purpose, creativity, and long term vision.
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black italic tracking-tight mb-4 sm:mb-6">Our Foundation</h2>
+            <p className="text-white/70 leading-relaxed mb-3 sm:mb-4 text-base sm:text-lg">
+              Zephyre was founded on <span className="text-brand-accent font-bold">28th August 2023</span> with a vision to build and inspire a dedicated fitness community through purpose driven apparel.
             </p>
-            <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+            <p className="text-white/70 leading-relaxed mb-6 sm:mb-8 text-base sm:text-lg">
               Our mission is to develop products that not only meet market needs, but also contribute toward a healthier, more positive, and community driven future.
             </p>
-            <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
               <div className="bg-white/5 p-4 sm:p-6 border border-white/10">
                 <p className="text-white/40 uppercase tracking-wider mb-2 text-[10px] sm:text-xs">Founder</p>
                 <p className="font-black text-brand-accent text-sm sm:text-base">ALEXIS HAOKIP</p>
@@ -54,22 +59,19 @@ export default function Ethos() {
                 <p className="text-white/40 uppercase tracking-wider mb-2 text-[10px] sm:text-xs">Co-Founders</p>
                 <p className="font-black text-sm sm:text-base">DAVID J. MATE</p>
                 <p className="font-black text-sm sm:text-base">NEHGOULEN KIPGEN</p>
+                <p className="font-black text-sm sm:text-base">WILLIAM MISAO</p>
               </div>
             </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </FlowSection>
 
       {/* Mission & Vision */}
-      <div className="bg-white/[0.02] border-y border-white/10 py-20 sm:py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-20">
+      <FlowSection className="bg-gradient-to-b from-brand-bg/95 to-brand-bg" aria-label="Mission and Vision">
+        <div className="flex flex-col justify-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-20 max-w-7xl mx-auto">
             {/* Mission */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
+            <div>
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-8 sm:mb-12">Our Mission</h2>
               <div className="space-y-6 sm:space-y-8">
                 <div className="flex gap-4">
@@ -91,14 +93,10 @@ export default function Ethos() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Vision */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
+            <div>
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-8 sm:mb-12">Our Vision</h2>
               <div className="space-y-6 sm:space-y-8">
                 <div className="flex gap-4">
@@ -120,259 +118,205 @@ export default function Ethos() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
-      </div>
+      </FlowSection>
 
       {/* Problems & Solutions */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 md:py-32">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-4xl sm:text-5xl md:text-7xl font-black italic tracking-tighter text-center mb-12 sm:mb-16 md:mb-20"
-        >
-          Problems & Solutions
-        </motion.h2>
+      <FlowSection className="bg-brand-bg" aria-label="Problems and Solutions">
+        <div className="flex flex-col justify-center max-w-7xl mx-auto">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black italic tracking-tighter text-center mb-12 sm:mb-16 md:mb-20">
+            Problems & Solutions
+          </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
-          {/* Problems */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-red-500/5 border border-red-500/20 p-6 sm:p-8"
-          >
-            <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-6 sm:mb-8 text-red-400">Problems</h3>
-            <div className="space-y-4 sm:space-y-6">
-              <p className="text-white/70 leading-relaxed text-sm sm:text-base">
-                • Many fitness wear options in the market are either too expensive or lack good quality at affordable prices.
-              </p>
-              <p className="text-white/70 leading-relaxed text-sm sm:text-base">
-                • Young people often lack motivation and community support for maintaining a healthy and active lifestyle.
-              </p>
-              <p className="text-white/70 leading-relaxed text-sm sm:text-base">
-                • Most brands focus only on fashion, not on fitness, comfort, and purpose together.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Solutions */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="bg-green-500/5 border border-green-500/20 p-6 sm:p-8"
-          >
-            <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-6 sm:mb-8 text-green-400">Solutions</h3>
-            <div className="space-y-4 sm:space-y-6">
-              <p className="text-white/70 leading-relaxed text-sm sm:text-base">
-                • Building affordable yet premium quality homegrown fitness wear that balances style, comfort, and performance.
-              </p>
-              <p className="text-white/70 leading-relaxed text-sm sm:text-base">
-                • We aim to create a positive fitness community that motivates and supports a healthy lifestyle.
-              </p>
-              <p className="text-white/70 leading-relaxed text-sm sm:text-base">
-                • Our brand combines fitness, fashion, and purpose to make activewear more meaningful and relatable.
-              </p>
-              <p className="text-white/70 leading-relaxed text-sm sm:text-base">
-                • We focus on building trust, accessibility, and inspiration through both products and community engagement.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Past Experience - Community Event */}
-      <div className="bg-white/[0.02] border-y border-white/10 py-20 sm:py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
-          >
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-8 sm:mb-12 text-center">Past Experience</h2>
-            
-            <div className="bg-brand-accent/10 border border-brand-accent/30 p-6 sm:p-8 md:p-12 mb-8 sm:mb-12">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 sm:mb-8">
-                <Calendar className="w-8 h-8 sm:w-10 sm:h-10 text-brand-accent flex-shrink-0" />
-                <div>
-                  <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-2">Zephyre Community Connect</h3>
-                  <p className="text-brand-accent font-bold text-sm sm:text-base">October 9, 2024 • Selnou Gym, Kangpokpi</p>
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+            {/* Problems */}
+            <div className="bg-red-500/5 border border-red-500/20 p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-6 sm:mb-8 text-red-400">Problems</h3>
+              <div className="space-y-4 sm:space-y-6">
+                <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+                  • Many fitness wear options in the market are either too expensive or lack good quality at affordable prices.
+                </p>
+                <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+                  • Young people often lack motivation and community support for maintaining a healthy and active lifestyle.
+                </p>
+                <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+                  • Most brands focus only on fashion, not on fitness, comfort, and purpose together.
+                </p>
               </div>
-              
-              <p className="text-white/70 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
-                On 9th October 2024, Zephyre hosted its first community event, <span className="text-white font-bold">Zephyre Community Connect</span>, at Selnou Gym in Kangpokpi. The event brought together fitness enthusiasts from across the area to participate in a dynamic and engaging fitness competition.
-              </p>
-              
-              <p className="text-white/70 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
-                Multiple styles of fitness wear prints were designed and showcased at the event, with on-spot sales conducted at the location.
-              </p>
-              
-              <p className="text-white/70 leading-relaxed text-sm sm:text-base">
-                Despite being our first initiative, the event was a great success driven purely by passion, determination, and the spirit of the community. It marked the beginning of Zephyre's journey beyond apparel, establishing a platform that connects, motivates, and empowers individuals in their fitness pursuits.
-              </p>
             </div>
-          </motion.div>
+
+            {/* Solutions */}
+            <div className="bg-green-500/5 border border-green-500/20 p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-6 sm:mb-8 text-green-400">Solutions</h3>
+              <div className="space-y-4 sm:space-y-6">
+                <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+                  • Building affordable yet premium quality homegrown fitness wear that balances style, comfort, and performance.
+                </p>
+                <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+                  • We aim to create a positive fitness community that motivates and supports a healthy lifestyle.
+                </p>
+                <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+                  • Our brand combines fitness, fashion, and purpose to make activewear more meaningful and relatable.
+                </p>
+                <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+                  • We focus on building trust, accessibility, and inspiration through both products and community engagement.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </FlowSection>
+
+      {/* Past Experience */}
+      <FlowSection className="bg-gradient-to-b from-brand-bg to-brand-bg/95" aria-label="Past Experience">
+        <div className="flex flex-col justify-center max-w-4xl mx-auto">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-8 sm:mb-12 text-center">Past Experience</h2>
+          
+          <div className="bg-brand-accent/10 border border-brand-accent/30 p-6 sm:p-8 md:p-12">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 sm:mb-8">
+              <Calendar className="w-8 h-8 sm:w-10 sm:h-10 text-brand-accent flex-shrink-0" />
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-2">Zephyre Community Connect</h3>
+                <p className="text-brand-accent font-bold text-sm sm:text-base">October 9, 2024 • Selnou Gym, Kangpokpi</p>
+              </div>
+            </div>
+            
+            <p className="text-white/70 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+              On 9th October 2024, Zephyre hosted its first community event, <span className="text-white font-bold">Zephyre Community Connect</span>, at Selnou Gym in Kangpokpi. The event brought together fitness enthusiasts from across the area to participate in a dynamic and engaging fitness competition.
+            </p>
+            
+            <p className="text-white/70 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+              Multiple styles of fitness wear prints were designed and showcased at the event, with on-spot sales conducted at the location.
+            </p>
+            
+            <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+              Despite being our first initiative, the event was a great success driven purely by passion, determination, and the spirit of the community. It marked the beginning of Zephyre's journey beyond apparel, establishing a platform that connects, motivates, and empowers individuals in their fitness pursuits.
+            </p>
+          </div>
+        </div>
+      </FlowSection>
 
       {/* Phase I Project */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 md:py-32">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-4xl sm:text-5xl md:text-7xl font-black italic tracking-tighter text-center mb-12 sm:mb-16 md:mb-20"
-        >
-          Phase I Project
-        </motion.h2>
+      <FlowSection className="bg-brand-bg" aria-label="Phase I Project">
+        <div className="flex flex-col justify-center max-w-7xl mx-auto">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black italic tracking-tighter text-center mb-12 sm:mb-16 md:mb-20">
+            Phase I Project
+          </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mb-12 sm:mb-16">
-          {/* Project Timeline */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-white/[0.02] border border-white/10 p-6 sm:p-8"
-          >
-            <div className="flex items-center gap-3 mb-6 sm:mb-8">
-              <Calendar className="w-6 h-6 sm:w-8 sm:h-8 text-brand-accent" />
-              <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Project Timeline</h3>
-            </div>
-            <div className="space-y-4 sm:space-y-6">
-              <div>
-                <p className="text-brand-accent font-bold mb-2 text-sm sm:text-base">October 2025</p>
-                <p className="text-white/70 text-sm sm:text-base">Project development initiated</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mb-12 sm:mb-16">
+            {/* Project Timeline */}
+            <div className="bg-white/[0.02] border border-white/10 p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                <Calendar className="w-6 h-6 sm:w-8 sm:h-8 text-brand-accent" />
+                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Project Timeline</h3>
               </div>
-              <div>
-                <p className="text-brand-accent font-bold mb-2 text-sm sm:text-base">March 2026</p>
-                <p className="text-white/70 text-sm sm:text-base">Product officially launched</p>
-              </div>
-              <div>
-                <p className="text-brand-accent font-bold mb-2 text-sm sm:text-base">April 2026</p>
-                <p className="text-white/70 text-sm sm:text-base">Promotional shoot at KWS Sports Event 2026</p>
+              <div className="space-y-4 sm:space-y-6">
+                <div>
+                  <p className="text-brand-accent font-bold mb-2 text-sm sm:text-base">October 2025</p>
+                  <p className="text-white/70 text-sm sm:text-base">Project development initiated</p>
+                </div>
+                <div>
+                  <p className="text-brand-accent font-bold mb-2 text-sm sm:text-base">March 2026</p>
+                  <p className="text-white/70 text-sm sm:text-base">Product officially launched</p>
+                </div>
+                <div>
+                  <p className="text-brand-accent font-bold mb-2 text-sm sm:text-base">April 2026</p>
+                  <p className="text-white/70 text-sm sm:text-base">Promotional shoot at KWS Sports Event 2026</p>
+                </div>
               </div>
             </div>
-          </motion.div>
 
-          {/* Product Launch */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="bg-white/[0.02] border border-white/10 p-6 sm:p-8"
-          >
-            <div className="flex items-center gap-3 mb-6 sm:mb-8">
-              <Award className="w-6 h-6 sm:w-8 sm:h-8 text-brand-accent" />
-              <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Product Launch</h3>
+            {/* Product Launch */}
+            <div className="bg-white/[0.02] border border-white/10 p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                <Award className="w-6 h-6 sm:w-8 sm:h-8 text-brand-accent" />
+                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Product Launch</h3>
+              </div>
+              <div className="space-y-4 sm:space-y-6">
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Introduced the brand's first product collection
+                </p>
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Launched in two color variants: <span className="text-brand-accent font-bold">Beige</span> and <span className="text-brand-accent font-bold">Black</span>
+                </p>
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Focused on combining fitness lifestyle with modern activewear aesthetics
+                </p>
+              </div>
             </div>
-            <div className="space-y-4 sm:space-y-6">
-              <p className="text-white/70 text-sm sm:text-base">
-                • Introduced the brand's first product collection
-              </p>
-              <p className="text-white/70 text-sm sm:text-base">
-                • Launched in two color variants: <span className="text-brand-accent font-bold">Beige</span> and <span className="text-brand-accent font-bold">Black</span>
-              </p>
-              <p className="text-white/70 text-sm sm:text-base">
-                • Focused on combining fitness lifestyle with modern activewear aesthetics
-              </p>
+          </div>
+
+          {/* Marketing & Outcomes */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+            {/* Marketing */}
+            <div className="bg-white/[0.02] border border-white/10 p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-brand-accent" />
+                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Marketing & Promotion</h3>
+              </div>
+              <div className="space-y-4 sm:space-y-6">
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Conducted promotional shoot during KWS Sports Event 2026
+                </p>
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Used event platform to market brand to large fitness community
+                </p>
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Increased public awareness and visibility
+                </p>
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Captured professional content for future promotions
+                </p>
+              </div>
             </div>
-          </motion.div>
+
+            {/* Outcomes */}
+            <div className="bg-white/[0.02] border border-white/10 p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                <Target className="w-6 h-6 sm:w-8 sm:h-8 text-brand-accent" />
+                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Outcomes & Impact</h3>
+              </div>
+              <div className="space-y-4 sm:space-y-6">
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Successfully created awareness among fitness community
+                </p>
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Established valuable networking contacts for future collaborations
+                </p>
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Improved brand recognition and audience reach
+                </p>
+                <p className="text-white/70 text-sm sm:text-base">
+                  • Built strong foundation for future marketing and expansion
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* Marketing & Outcomes */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
-          {/* Marketing */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="bg-white/[0.02] border border-white/10 p-6 sm:p-8"
-          >
-            <div className="flex items-center gap-3 mb-6 sm:mb-8">
-              <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-brand-accent" />
-              <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Marketing & Promotion</h3>
-            </div>
-            <div className="space-y-4 sm:space-y-6">
-              <p className="text-white/70 text-sm sm:text-base">
-                • Conducted promotional shoot during KWS Sports Event 2026
-              </p>
-              <p className="text-white/70 text-sm sm:text-base">
-                • Used event platform to market brand to large fitness community
-              </p>
-              <p className="text-white/70 text-sm sm:text-base">
-                • Increased public awareness and visibility
-              </p>
-              <p className="text-white/70 text-sm sm:text-base">
-                • Captured professional content for future promotions
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Outcomes */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="bg-white/[0.02] border border-white/10 p-6 sm:p-8"
-          >
-            <div className="flex items-center gap-3 mb-6 sm:mb-8">
-              <Target className="w-6 h-6 sm:w-8 sm:h-8 text-brand-accent" />
-              <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight">Outcomes & Impact</h3>
-            </div>
-            <div className="space-y-4 sm:space-y-6">
-              <p className="text-white/70 text-sm sm:text-base">
-                • Successfully created awareness among fitness community
-              </p>
-              <p className="text-white/70 text-sm sm:text-base">
-                • Established valuable networking contacts for future collaborations
-              </p>
-              <p className="text-white/70 text-sm sm:text-base">
-                • Improved brand recognition and audience reach
-              </p>
-              <p className="text-white/70 text-sm sm:text-base">
-                • Built strong foundation for future marketing and expansion
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </div>
+      </FlowSection>
 
       {/* Quote Section */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 sm:mb-32">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="text-center border border-white/10 p-8 sm:p-12 md:p-16 bg-white/[0.02]"
-        >
-          <h2 className="text-[50px] sm:text-[60px] md:text-[80px] font-black italic tracking-tighter opacity-5 uppercase mb-[-30px] sm:mb-[-40px]">
-            FAITH MOVES MOUNTAINS
-          </h2>
-          <p className="text-lg sm:text-xl md:text-2xl italic text-white/80 mb-6 sm:mb-8 leading-relaxed px-4">
-            "The resistance that you fight physically in the gym and the resistance that you fight in life can only build a strong character."
-          </p>
-          <span className="text-brand-accent text-[9px] sm:text-[10px] font-black tracking-[0.4em] sm:tracking-[0.5em] uppercase px-3 sm:px-4 py-1.5 sm:py-2 border border-brand-accent/20 inline-block">
-            Arnold Schwarzenegger
-          </span>
-        </motion.div>
-      </div>
+      <FlowSection className="bg-gradient-to-b from-brand-bg/95 to-brand-bg" aria-label="Inspiration">
+        <div className="flex flex-col justify-center items-center max-w-4xl mx-auto">
+          <div className="text-center border border-white/10 p-8 sm:p-12 md:p-16 bg-white/[0.02] w-full">
+            <h2 className="text-[50px] sm:text-[60px] md:text-[80px] font-black italic tracking-tighter opacity-5 uppercase mb-[-30px] sm:mb-[-40px]">
+              FAITH MOVES MOUNTAINS
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl italic text-white/80 mb-6 sm:mb-8 leading-relaxed px-4">
+              "The resistance that you fight physically in the gym and the resistance that you fight in life can only build a strong character."
+            </p>
+            <span className="text-brand-accent text-[9px] sm:text-[10px] font-black tracking-[0.4em] sm:tracking-[0.5em] uppercase px-3 sm:px-4 py-1.5 sm:py-2 border border-brand-accent/20 inline-block">
+              Arnold Schwarzenegger
+            </span>
+          </div>
+        </div>
+      </FlowSection>
 
       {/* Join Us Section */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+      <FlowSection className="bg-brand-bg" aria-label="Join the Movement">
+        <div className="flex flex-col justify-center items-center text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black italic tracking-tighter mb-6 sm:mb-8">
             Join The Movement
           </h2>
@@ -386,8 +330,8 @@ export default function Ethos() {
           >
             Explore Collection
           </a>
-        </motion.div>
-      </div>
-    </div>
+        </div>
+      </FlowSection>
+    </FlowArt>
   );
 }

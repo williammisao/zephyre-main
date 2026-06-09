@@ -1,16 +1,224 @@
 import { motion } from 'motion/react';
-import { User, Package, Heart, Settings, LogOut, MapPin, CreditCard, Bell } from 'lucide-react';
-import { useState } from 'react';
+import { User, Package, Heart, Settings, LogOut, MapPin, CreditCard, Bell, Camera, Edit } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { Link, useNavigate } from 'react-router-dom';
+import { updateProfile } from 'firebase/auth';
+import toast from 'react-hot-toast';
 
 export default function AccountPage() {
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'wishlist' | 'settings'>('profile');
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    username: '',
+    name: currentUser?.displayName || '',
+    email: currentUser?.email || '',
+    phone: currentUser?.phoneNumber || '',
+  });
+  const [dbUser, setDbUser] = useState<any>(null);
 
-  // Mock user data
+  // Fetch user data from database
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!currentUser) return;
+
+      try {
+        const idToken = await currentUser.getIdToken();
+        const response = await fetch('/api/users/me', {
+          headers: {
+            'Authorization': `Bearer ${idToken}`,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setDbUser(userData);
+          
+          // Populate form data with database values
+          setFormData({
+            username: userData.username || '',
+            name: userData.name || currentUser.displayName || '',
+            email: userData.email || currentUser.email || '',
+            phone: userData.phoneNumber || currentUser.phoneNumber || '',
+          });
+        } else {
+          // Try loading from localStorage if database not available
+          const localData = localStorage.getItem(`user_${currentUser.uid}`);
+          if (localData) {
+            const userData = JSON.parse(localData);
+            setDbUser(userData);
+            setFormData({
+              username: userData.username || '',
+              name: userData.name || currentUser.displayName || '',
+              email: userData.email || currentUser.email || '',
+              phone: userData.phoneNumber || currentUser.phoneNumber || '',
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch user data:', error);
+        // Try loading from localStorage
+        const localData = localStorage.getItem(`user_${currentUser.uid}`);
+        if (localData) {
+          const userData = JSON.parse(localData);
+          setDbUser(userData);
+          setFormData({
+            username: userData.username || '',
+            name: userData.name || currentUser.displayName || '',
+            email: userData.email || currentUser.email || '',
+            phone: userData.phoneNumber || currentUser.phoneNumber || '',
+          });
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [currentUser]);
+
+  // If not logged in, show login prompt
+  if (!currentUser) {
+    return (
+      <div className="min-h-screen bg-brand-bg text-white pt-20 sm:pt-24 pb-20 sm:pb-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+            <User className="w-20 h-20 text-white/20 mb-6" />
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic mb-6">
+              Sign In Required
+            </h1>
+            <p className="text-white/60 text-lg mb-12 max-w-md">
+              Please sign in to access your account and view your orders.
+            </p>
+            <div className="flex gap-4">
+              <Link
+                to="/login"
+                className="px-12 py-5 bg-brand-accent text-white font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-brand-bg transition-all transform hover:scale-105"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/signup"
+                className="px-12 py-5 border border-white/30 text-white font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-brand-bg transition-all transform hover:scale-105"
+              >
+                Sign Up
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  const handleProfileUpdate = async () => {
+    if (!currentUser) return;
+
+    try {
+      // Validate username
+      if (formData.username && formData.username.length < 3) {
+        toast.error('Username must be at least 3 characters long');
+        return;
+      }
+
+      // Update Firebase profile
+      await updateProfile(currentUser, {
+        displayName: formData.name,
+      });
+
+      // Try to update user in database (will work once PostgreSQL is set up)
+      try {
+        const idToken = await currentUser.getIdToken();
+        const response = await fetch('/api/users/update', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${idToken}`,
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            username: formData.username,
+            phone: formData.phone,
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.user) {
+            setDbUser(data.user);
+          }
+        } else {
+          // Database not available, store locally as fallback
+          console.log('Database not available, using local storage');
+          const localUser = {
+            username: formData.username,
+            name: formData.name,
+            email: formData.email,
+            phoneNumber: formData.phone,
+          };
+          localStorage.setItem(`user_${currentUser.uid}`, JSON.stringify(localUser));
+          setDbUser(localUser);
+        }
+      } catch (dbError) {
+        // Database not available, store locally
+        console.log('Database error, using local storage:', dbError);
+        const localUser = {
+          username: formData.username,
+          name: formData.name,
+          email: formData.email,
+          phoneNumber: formData.phone,
+        };
+        localStorage.setItem(`user_${currentUser.uid}`, JSON.stringify(localUser));
+        setDbUser(localUser);
+      }
+      
+      toast.success('Profile updated successfully!');
+      setIsEditing(false);
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to update profile');
+      console.error('Profile update error:', error);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    // Reset form data to original values
+    setFormData({
+      username: dbUser?.username || '',
+      name: dbUser?.name || currentUser?.displayName || '',
+      email: dbUser?.email || currentUser?.email || '',
+      phone: dbUser?.phoneNumber || currentUser?.phoneNumber || '',
+    });
+    setIsEditing(false);
+  };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !currentUser) return;
+
+    // In a real app, you would upload to Firebase Storage
+    // For now, we'll show a message
+    toast.success('Photo upload feature coming soon!');
+  };
+
+  // User data from Firebase and Database
   const user = {
-    name: 'John Warrior',
-    email: 'john@zephyre.com',
-    phone: '+91 98765 43210',
-    joinDate: 'January 2023',
+    username: dbUser?.username || formData.username || currentUser?.displayName?.toLowerCase().replace(/\s+/g, '_') || 'warrior',
+    name: currentUser?.displayName || 'Zephyre Warrior',
+    email: currentUser?.email || '',
+    phone: currentUser?.phoneNumber || 'Not provided',
+    photoURL: currentUser?.photoURL || null,
+    joinDate: new Date(currentUser?.metadata.creationTime || '').toLocaleDateString('en-US', { 
+      month: 'long', 
+      year: 'numeric' 
+    }),
   };
 
   const orders = [
@@ -106,7 +314,10 @@ export default function AccountPage() {
                 <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
                 Settings
               </button>
-              <button className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 text-left font-bold uppercase tracking-wider text-xs sm:text-sm text-red-400 hover:text-red-300 hover:bg-white/5 transition-all mt-4 border-t border-white/10 pt-4 sm:pt-6">
+              <button 
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 text-left font-bold uppercase tracking-wider text-xs sm:text-sm text-red-400 hover:text-red-300 hover:bg-white/5 transition-all mt-4 border-t border-white/10 pt-4 sm:pt-6"
+              >
                 <LogOut className="w-4 h-4 sm:w-5 sm:h-5" />
                 Logout
               </button>
@@ -122,75 +333,162 @@ export default function AccountPage() {
             {/* Profile Tab */}
             {activeTab === 'profile' && (
               <div className="space-y-6 sm:space-y-8">
-                <div className="bg-white/[0.02] border border-white/10 p-6 sm:p-8">
-                  <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-6 sm:mb-8">Profile Information</h2>
-                  
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-2">
-                        Full Name
+                {/* Profile Header Card */}
+                <div className="bg-gradient-to-r from-brand-accent/20 to-brand-accent/5 border border-brand-accent/30 p-8 sm:p-12">
+                  <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-6">
+                    {/* Profile Picture */}
+                    <div className="relative group">
+                      <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-brand-accent/50 bg-white/5">
+                        {user.photoURL ? (
+                          <img src={user.photoURL} alt={user.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-brand-accent/20">
+                            <User className="w-16 h-16 text-brand-accent" />
+                          </div>
+                        )}
+                      </div>
+                      <label className="absolute bottom-0 right-0 w-10 h-10 bg-brand-accent rounded-full flex items-center justify-center cursor-pointer hover:bg-white hover:text-brand-bg transition-all group-hover:scale-110">
+                        <Camera className="w-5 h-5" />
+                        <input 
+                          type="file" 
+                          accept="image/*" 
+                          className="hidden" 
+                          onChange={handlePhotoUpload}
+                        />
                       </label>
-                      <input
-                        type="text"
-                        defaultValue={user.name}
-                        className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white font-medium focus:border-brand-accent focus:outline-none transition-colors"
-                      />
                     </div>
 
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-2">
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        defaultValue={user.email}
-                        className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white font-medium focus:border-brand-accent focus:outline-none transition-colors"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-2">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        defaultValue={user.phone}
-                        className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white font-medium focus:border-brand-accent focus:outline-none transition-colors"
-                      />
-                    </div>
-
-                    <div className="pt-4">
-                      <button className="px-8 py-3 bg-brand-accent text-white font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-brand-bg transition-all">
-                        Save Changes
-                      </button>
+                    {/* User Info */}
+                    <div className="flex-1 text-center sm:text-left">
+                      <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-2">{user.username}</h2>
+                      <p className="text-white/60 text-sm sm:text-base mb-1">{user.name}</p>
+                      <p className="text-white/40 text-xs mb-3">{user.email}</p>
+                      <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
+                        <span className="text-xs font-black uppercase tracking-wider px-3 py-1 bg-white/10 rounded">
+                          Member since {user.joinDate}
+                        </span>
+                        <span className="text-xs font-black uppercase tracking-wider px-3 py-1 bg-brand-accent/20 text-brand-accent rounded">
+                          WARRIOR
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Addresses */}
-                <div className="bg-white/[0.02] border border-white/10 p-6 sm:p-8">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4">
-                    <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">Saved Addresses</h2>
-                    <button className="flex items-center gap-2 text-brand-accent text-xs sm:text-sm font-black uppercase tracking-wider hover:text-white transition-colors">
-                      <MapPin className="w-4 h-4" />
-                      Add New
+                  {/* Edit Button - Bottom */}
+                  <div className="flex justify-end border-t border-white/10 pt-6">
+                    <button
+                      onClick={isEditing ? handleCancelEdit : () => setIsEditing(true)}
+                      className="px-6 py-3 border border-white/30 hover:bg-white hover:text-brand-bg transition-all font-black uppercase tracking-wider text-sm flex items-center gap-2"
+                    >
+                      <Edit className="w-4 h-4" />
+                      {isEditing ? 'Cancel' : 'Edit Profile'}
                     </button>
                   </div>
-
-                  <div className="space-y-4">
-                    <div className="bg-white/5 border border-white/10 p-4 sm:p-6">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="font-black uppercase tracking-wider text-sm sm:text-base">Home</h3>
-                        <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-2 py-1 bg-brand-accent">Default</span>
-                      </div>
-                      <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
-                        123 Warrior Street, Faith District<br />
-                        Mumbai, Maharashtra 400001<br />
-                        India
-                      </p>
-                    </div>
-                  </div>
                 </div>
+
+                {/* Show Profile Information and Saved Addresses only when editing */}
+                {isEditing && (
+                  <>
+                    {/* Profile Information Form */}
+                    <div className="bg-white/[0.02] border border-white/10 p-6 sm:p-8">
+                      <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-6 sm:mb-8">Profile Information</h2>
+                      
+                      <div className="space-y-6">
+                        <div>
+                          <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-2">
+                            Username
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.username}
+                            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                            placeholder="your_username"
+                            className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white font-medium focus:border-brand-accent focus:outline-none transition-colors"
+                          />
+                          <p className="text-[10px] text-white/40 mt-1">Any characters allowed, minimum 3 characters</p>
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-2">
+                            Full Name
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white font-medium focus:border-brand-accent focus:outline-none transition-colors"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-2">
+                            Email Address
+                          </label>
+                          <input
+                            type="email"
+                            value={user.email}
+                            disabled
+                            className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white/50 font-medium cursor-not-allowed"
+                          />
+                          <p className="text-[10px] text-white/40 mt-1">Email cannot be changed</p>
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-2">
+                            Phone Number
+                          </label>
+                          <input
+                            type="tel"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            placeholder="Add phone number"
+                            className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white font-medium focus:border-brand-accent focus:outline-none transition-colors"
+                          />
+                        </div>
+
+                        <div className="pt-4 flex gap-4">
+                          <button 
+                            onClick={handleProfileUpdate}
+                            className="px-8 py-3 bg-brand-accent text-white font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-brand-bg transition-all"
+                          >
+                            Save Changes
+                          </button>
+                          <button 
+                            onClick={handleCancelEdit}
+                            className="px-8 py-3 border border-white/30 text-white font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-brand-bg transition-all"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Addresses */}
+                    <div className="bg-white/[0.02] border border-white/10 p-6 sm:p-8">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4">
+                        <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">Saved Addresses</h2>
+                        <button className="flex items-center gap-2 text-brand-accent text-xs sm:text-sm font-black uppercase tracking-wider hover:text-white transition-colors">
+                          <MapPin className="w-4 h-4" />
+                          Add New
+                        </button>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div className="bg-white/5 border border-white/10 p-4 sm:p-6">
+                          <div className="flex items-start justify-between mb-2">
+                            <h3 className="font-black uppercase tracking-wider text-sm sm:text-base">Home</h3>
+                            <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-2 py-1 bg-brand-accent">Default</span>
+                          </div>
+                          <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
+                            123 Warrior Street, Faith District<br />
+                            Mumbai, Maharashtra 400001<br />
+                            India
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             )}
 

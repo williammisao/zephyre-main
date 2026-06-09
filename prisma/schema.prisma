@@ -12,9 +12,12 @@ datasource db {
 
 model User {
   id            String    @id @default(uuid())
+  firebaseUid   String    @unique  // Firebase UID for authentication
   email         String    @unique
   name          String?
-  passwordHash  String
+  username      String?   @unique  // Username for profile display
+  phoneNumber   String?
+  photoURL      String?
   orders        Order[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -72,4 +75,16 @@ model OrderItem {
   product   Product  @relation(fields: [productId], references: [id])
   quantity  Int
   price     Decimal  @db.Decimal(10, 2)
+}
+
+model RunningGroupMember {
+  id          String   @id @default(uuid())
+  firstName   String
+  lastName    String
+  email       String   @unique
+  phone       String
+  experience  String   // beginner, intermediate, advanced
+  goals       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { AuthProvider } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
 import HomeView from './components/HomeView';
 import ShopView from './components/ShopView';
 import ProductDetailView from './components/ProductDetailView';
 import Ethos from './components/Ethos';
+import RunningGroup from './components/RunningGroup';
 import CheckoutPage from './components/CheckoutPage';
 import AccountPage from './components/AccountPage';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 import CartSidebar from './components/CartSidebar';
 import CustomCursor from './components/CustomCursor';
 import SmoothScroll from './components/SmoothScroll';
@@ -30,25 +34,29 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <SmoothScroll />
-      <ScrollToTop />
-      <main className="min-h-screen">
-        {/* <CustomCursor /> */}
-        <Toaster position="bottom-right" />
-        <Navbar onOpenCart={() => setIsCartOpen(true)} />
-        <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-        
-        <Routes>
-          <Route path="/" element={<HomeView />} />
-          <Route path="/shop" element={<ShopView />} />
-          <Route path="/product/:id" element={<ProductDetailView />} />
-          <Route path="/ethos" element={<Ethos />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/account" element={<AccountPage />} />
-        </Routes>
+      <AuthProvider>
+        <SmoothScroll />
+        <ScrollToTop />
+        <main className="min-h-screen">
+          {/* <CustomCursor /> */}
+          <Toaster position="bottom-right" />
+          <Navbar onOpenCart={() => setIsCartOpen(true)} />
+          <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+          
+          <Routes>
+            <Route path="/" element={<HomeView />} />
+            <Route path="/shop" element={<ShopView />} />
+            <Route path="/product/:id" element={<ProductDetailView />} />
+            <Route path="/ethos" element={<Ethos />} />
+            <Route path="/space" element={<RunningGroup />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+          </Routes>
 
-        {/* Footer */}
-        <footer className="bg-brand-bg py-32 border-t border-white/10 overflow-hidden relative">
+          {/* Footer */}
+          <footer className="bg-brand-bg py-32 border-t border-white/10 overflow-hidden relative">
           {/* Animated Background Text */}
           <motion.div
             initial={{ x: 0 }}
@@ -104,7 +112,8 @@ export default function App() {
             </div>
           </div>
         </footer>
-      </main>
+        </main>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
