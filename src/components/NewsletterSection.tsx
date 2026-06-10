@@ -1,12 +1,12 @@
 import { motion } from 'motion/react';
 import { Mail, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import toast from 'react-hot-toast';
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (email) {
       toast.success('Thanks for subscribing!');
@@ -41,7 +41,7 @@ export default function NewsletterSection() {
             Join the<br/>Movement
           </h2>
           <p className="text-white/50 text-sm max-w-xl mx-auto mb-12 uppercase tracking-widest leading-relaxed">
-            Get exclusive access to new drops, faith-driven content, and special offers. Be part of the Zephyr family.
+            Get exclusive access to new drops, faith-driven content, and special offers. Be part of the Zephyre family.
           </p>
 
           {/* Form */}

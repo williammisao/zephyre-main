@@ -22,7 +22,7 @@ export default function TestimonialsSection() {
       role: 'Personal Trainer',
       image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
       rating: 5,
-      text: 'Zephyr has become my go-to brand. The fit, the message, the quality - everything speaks to who I am and what I stand for.',
+      text: 'Zephyre has become my go-to brand. The fit, the message, the quality - everything speaks to who I am and what I stand for.',
     },
   ];
 
@@ -43,7 +43,7 @@ export default function TestimonialsSection() {
             Trusted by<br/>Warriors
           </h2>
           <p className="text-white/50 text-sm max-w-2xl mx-auto uppercase tracking-widest">
-            Real stories from real people who trust Zephyr
+            Real stories from real people who trust Zephyre
           </p>
         </motion.div>
 

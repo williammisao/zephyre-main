@@ -51,17 +51,21 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
           <div className="flex items-center space-x-3 sm:space-x-6 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest">
             {currentUser ? (
               <Link to="/account" className="hidden sm:flex items-center gap-2 hover:text-white text-white/50 transition-colors uppercase group">
-                {currentUser.photoURL ? (
-                  <img 
-                    src={currentUser.photoURL} 
-                    alt={currentUser.displayName || 'User'} 
-                    className="w-8 h-8 rounded-full border-2 border-white/20 group-hover:border-brand-accent transition-colors object-cover"
-                  />
-                ) : (
-                  <div className="w-8 h-8 rounded-full border-2 border-white/20 group-hover:border-brand-accent transition-colors bg-brand-accent/20 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full border-2 border-white/20 group-hover:border-brand-accent transition-colors overflow-hidden bg-brand-accent/20 flex items-center justify-center flex-shrink-0">
+                  {currentUser.photoURL ? (
+                    <img 
+                      src={currentUser.photoURL} 
+                      alt={currentUser.displayName || 'User'} 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.parentElement!.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>';
+                      }}
+                    />
+                  ) : (
                     <UserIcon className="w-4 h-4" />
-                  </div>
-                )}
+                  )}
+                </div>
                 <span>{currentUser.displayName?.split(' ')[0] || 'Account'}</span>
               </Link>
             ) : (
@@ -102,17 +106,21 @@ export default function Navbar({ onOpenCart }: { onOpenCart: () => void }) {
           <Link to="/space" onClick={() => setIsMenuOpen(false)} className="block text-base sm:text-lg font-medium uppercase tracking-wider">Space</Link>
           {currentUser ? (
             <Link to="/account" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 text-base sm:text-lg font-medium uppercase tracking-wider sm:hidden border-t border-white/10 pt-4">
-              {currentUser.photoURL ? (
-                <img 
-                  src={currentUser.photoURL} 
-                  alt={currentUser.displayName || 'User'} 
-                  className="w-10 h-10 rounded-full border-2 border-brand-accent object-cover"
-                />
-              ) : (
-                <div className="w-10 h-10 rounded-full border-2 border-brand-accent bg-brand-accent/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full border-2 border-brand-accent overflow-hidden bg-brand-accent/20 flex items-center justify-center flex-shrink-0">
+                {currentUser.photoURL ? (
+                  <img 
+                    src={currentUser.photoURL} 
+                    alt={currentUser.displayName || 'User'} 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>';
+                    }}
+                  />
+                ) : (
                   <UserIcon className="w-5 h-5" />
-                </div>
-              )}
+                )}
+              </div>
               <span>{currentUser.displayName || 'Account'}</span>
             </Link>
           ) : (

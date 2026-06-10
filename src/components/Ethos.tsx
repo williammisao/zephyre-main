@@ -50,16 +50,24 @@ export default function Ethos() {
             <p className="text-white/70 leading-relaxed mb-6 sm:mb-8 text-base sm:text-lg">
               Our mission is to develop products that not only meet market needs, but also contribute toward a healthier, more positive, and community driven future.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-sm">
               <div className="bg-white/5 p-4 sm:p-6 border border-white/10">
-                <p className="text-white/40 uppercase tracking-wider mb-2 text-[10px] sm:text-xs">Founder</p>
-                <p className="font-black text-brand-accent text-sm sm:text-base">ALEXIS HAOKIP</p>
+                <p className="text-white/40 uppercase tracking-wider mb-2 text-[10px] sm:text-xs">Chief Technical Officer</p>
+                <p className="font-black text-sm sm:text-base">WILLIAM GINGUNHAO MISAO</p>
               </div>
               <div className="bg-white/5 p-4 sm:p-6 border border-white/10">
-                <p className="text-white/40 uppercase tracking-wider mb-2 text-[10px] sm:text-xs">Co-Founders</p>
+                <p className="text-white/40 uppercase tracking-wider mb-2 text-[10px] sm:text-xs">Partner • Chief Marketing Officer</p>
                 <p className="font-black text-sm sm:text-base">DAVID J. MATE</p>
+              </div>
+              <div className="bg-white/5 p-4 sm:p-6 border border-white/10">
+                <p className="text-white/40 uppercase tracking-wider mb-2 text-[10px] sm:text-xs">Partner • Chief Manufacturing Officer</p>
                 <p className="font-black text-sm sm:text-base">NEHGOULEN KIPGEN</p>
-                <p className="font-black text-sm sm:text-base">WILLIAM MISAO</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 mt-4">
+              <div className="bg-white/5 p-4 sm:p-6 border border-white/10">
+                <p className="text-white/40 uppercase tracking-wider mb-2 text-[10px] sm:text-xs">Founder</p>
+                <p className="font-black text-brand-accent text-sm sm:text-base">T JANGKHOTINTHANG HAOKIP (ALEXISS)</p>
               </div>
             </div>
           </div>

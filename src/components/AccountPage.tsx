@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { User, Package, Heart, Settings, LogOut, MapPin, CreditCard, Bell, Camera, Edit } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { updateProfile } from 'firebase/auth';
@@ -199,7 +199,7 @@ export default function AccountPage() {
     setIsEditing(false);
   };
 
-  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !currentUser) return;
 

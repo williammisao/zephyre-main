@@ -63,7 +63,7 @@ export default function BrandStory() {
                 Forged in<br/>Faith
               </h2>
               <p className="text-white/60 text-base leading-relaxed mb-6">
-                Zephyr was born from a simple belief: your body is a temple, and what you wear should honor that truth. We're not just another fitness brand—we're a movement of warriors who train with purpose.
+                Zephyre was born from a simple belief: your body is a temple, and what you wear should honor that truth. We're not just another fitness brand—we're a movement of warriors who train with purpose.
               </p>
               <p className="text-white/60 text-base leading-relaxed">
                 Every stitch, every fabric choice, every design element is intentional. We create apparel that performs at the highest level while carrying a message that matters.
